@@ -1,0 +1,243 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  color: white;
+  position: relative;
+  background-color: black;
+}
+main {
+}
+
+ul {
+  list-style-type: none;
+  display: flex;
+  gap: 10px;
+  margin: 0;
+  padding-right: 36px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+.container {
+  height: 100vh;
+  width: 100vw;
+}
+.blue {
+  background: blue;
+}
+
+.orange {
+  background: orange;
+}
+
+.purple {
+  background: purple;
+}
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-vertical {
+  display: flex;
+  align-items: center;
+}
+
+.loading-screen {
+  position: relative;
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  background-color: black;
+  width: 100%;
+  height: 0%;
+}
+
+.load-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  overflow: hidden;
+  z-index: 10;
+  pointer-events: none;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+:root {
+  --green-color: 128, 193, 139;
+  --red-color: 228, 89, 89;
+  --current-color: 128, 193, 139;
+}
+
+::selection {
+  background: white;
+  color: rgb(var(--current-color));
+  mix-blend-mode: difference;
+}
+
+#contact-main {
+  background-color: rgb(var(--green-color));
+}
+#about-main {
+  background-color: rgb(var(--red-color));
+}
+
+#top-eye {
+  top: 0;
+}
+
+.eye {
+  z-index: 999;
+  position: absolute;
+  left: 0;
+  height: 0vh;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+#bottom-eye {
+  bottom: 0;
+}
+
+h1::selection {
+  padding: 20px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: white;
+  width: 100vw;
+  overflow-x: hidden;
+  min-height: 100vh;
+  color: white;
+  position: relative;
+}
+main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin-block-start: 0;
+  margin-block-end: 0;
+  padding-inline-start: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  gap: 20px;
+}
+
+#contact-items:hover .contact-item:not(:hover) {
+  opacity: 0.5;
+  font-size: 48px;
+}
+#contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: fit-content;
+}
+
+.contact-item {
+  font-size: 48px;
+  transition: all 300ms ease-in-out;
+  opacity: 1;
+  height: 80px;
+  line-height: 0.1;
+}
+
+.contact-item a {
+  display: flex;
+  align-items: center;
+}
+
+.contact-item:hover {
+  font-weight: 700;
+  font-size: 64px;
+  padding-left: 40px;
+  margin-top: -10px;
+}
+.contact-item svg,
+.contact-item svg path,
+.contact-item svg circle {
+  width: 80px;
+  height: 80px;
+  stroke-width: 4px;
+  transition: all 300ms ease-in-out;
+}
+.contact-item:hover svg {
+  width: 102px;
+  height: 102px;
+}
+.contact-item span {
+}
+
+.contact-item:hover svg,
+.contact-item:hover svg path,
+.contact-item:hover svg circle {
+  stroke-width: 8px;
+}
+.custom-cursor {
+  z-index: 99;
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none; /* Prevents interference with clicks */
+
+  background-color: white;
+  transition:
+    width 700ms ease-in-out,
+    background-color 700ms ease,
+    transform 700ms ease-in-out;
+  mix-blend-mode: normal; /* Creates a negative overlay effect */
+}
+#navigation ul {
+  display: flex;
+  writing-mode: vertical-rl;
+  text-orientation: sideways-right;
+  padding: 0;
+  justify-content: center;
+  gap: 40px;
+  height: 100%;
+  transform: rotate(180deg);
+}
+#navigation {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 20px;
+}
+
+#home {
+  background-color: white;
+}
+
+header {
+  position: absolute;
+  width: 100%;
+  padding: 12px 36px 12px 36px;
+  z-index: 99;
+}
+aside {
+  z-index: 99;
+}
