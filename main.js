@@ -1,11 +1,22 @@
 const colors = {
   green: "128, 193, 139",
   red: "228, 89, 89",
+  dark: "35,35,35",
+  light: "255,255,255",
 };
 
 barba.init({
   preventRunning: true,
   views: [
+    {
+      namespace: "home",
+      beforeEnter: (data) => {
+        setCSSRootVar("--base-color", colors.dark);
+      },
+      beforeLeave: (data) => {
+        setCSSRootVar("--base-color", colors.light);
+      },
+    },
     {
       namespace: "about",
       beforeEnter: (data) => {
@@ -71,7 +82,6 @@ let posX = 0,
   posY = 0; // Initialize cursor position
 let currentSize = 20;
 
-// Move the custom cursor according to mouse movement
 document.addEventListener("mousemove", (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
@@ -81,7 +91,6 @@ function animateCursor() {
   posX += (mouseX - posX) * cursorSmoothFactor; // Smooth transition for X
   posY += (mouseY - posY) * cursorSmoothFactor; // Smooth transition for Y
 
-  // customCursor.style.transform = `translate(${posX}px, ${posY}px)`; // Move cursor
   customCursor.style.left = `${posX - currentSize / 2}px`; // Centering the cursor
   customCursor.style.top = `${posY - currentSize / 2}px`;
 
@@ -91,29 +100,44 @@ function animateCursor() {
 function cursorTarget() {
   document.querySelectorAll("a").forEach((item) => {
     item.addEventListener("mouseover", (e) => {
-      // currentSize = 100;
-      // customCursor.style.width = currentSize + "px";
       customCursor.style.transform = "scale(4)";
-
-      //customCursor.style.border = "1px solid white";
       customCursor.style.backgroundColor = "rgba(var(--base-color), 0)";
       customCursor.style.backdropFilter = "sepia(100%) ";
     });
     item.addEventListener("mouseout", (e) => {
-      //currentSize = 20;
-
-      //customCursor.style.width = currentSize + "px";
       customCursor.style.transform = "scale(1)";
-
       customCursor.style.mixBlendMode = "normal";
       customCursor.style.backgroundColor = "white";
     });
   });
 }
 
+function aboutScroll() {
+  const scrollSection = document.querySelector("#about-section-job");
+  const aboutRole = document.querySelectorAll(".about-role-item");
+  scrollSection &&
+    scrollSection.addEventListener("scroll", function (event) {
+      const top = scrollSection.scrollTop;
+      if (top > 400) {
+        aboutRole[2].classList.add("fade-in");
+        aboutRole[2].classList.remove("hidden");
+        // aboutRole[2].style.opacity = 0.5;
+        // aboutRole[1].style.opacity = 0.75;
+      } else if (top > 200) {
+        // aboutRole[2].style.opacity = 0.75;
+        aboutRole[2].classList.add("hidden");
+        aboutRole[1].classList.remove("hidden");
+        aboutRole[1].classList.add("fade-in");
+      } else {
+        aboutRole[1].classList.add("hidden");
+      }
+    });
+}
+
 function initialize() {
   animateCursor(); // Start the animation loop
   cursorTarget();
+  aboutScroll();
 }
 
 initialize();
@@ -121,75 +145,3 @@ initialize();
 barba.hooks.after(() => {
   initialize();
 });
-
-// function delay(n) {
-//   n = n || 2000;
-//   return new Promise((done) => {
-//     setTimeout(() => {
-//       done();
-//     }, n);
-//   });
-// }
-
-// function pageTransition() {
-//   var tl = gsap.timeline();
-//   tl.to(".loading-screen", {
-//     duration: 1,
-//     height: "100%",
-//     bottom: "0%",
-//     ease: "Expo.easeInOut",
-//   });
-
-//   tl.to(".loading-screen", {
-//     duration: 1.2,
-//     height: "100%",
-//     bottom: "100%",
-//     ease: "Expo.easeInOut",
-//     // delay: 0.3,
-//   });
-//   tl.set(".loading-screen", { bottom: "-100%" });
-// }
-
-// function contentAnimation() {
-//   var tl = gsap.timeline();
-//   tl.from(".animate-this", {
-//     duration: 1,
-//     y: 30,
-//     opacity: 0,
-//     stagger: 0.4,
-//     delay: 0.2,
-//   });
-// }
-
-// document.addEventListener("DOMContentLoaded", function () {
-//   barba.init({
-//     sync: true,
-
-//     transitions: [
-//       {
-//         async leave(data) {
-//           const done = this.async();
-
-//           pageTransition();
-//           await delay(1000);
-//           done();
-//         },
-
-//         async enter(data) {
-//           contentAnimation();
-//         },
-
-//         async once(data) {
-//           contentAnimation();
-//         },
-//       },
-//     ],
-//   });
-// });
-
-// barba.hooks.beforeLeave((data) => {
-//   console.log("BRUH");
-//   const loading = document.querySelector(".loading-screen");
-//   // loading.style.backgroundColor = data.current.container.style.backgroundColor;
-//   console.log(data.current.container.style.backgroundColor);
-// });
